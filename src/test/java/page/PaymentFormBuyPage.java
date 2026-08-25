@@ -1,6 +1,11 @@
 package page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import data.DataHelper;
+import org.openqa.selenium.Keys;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -19,4 +24,77 @@ public class PaymentFormBuyPage {
     private SelenideElement wrongFormat = $(byText("Неверный формат"));
     private SelenideElement wrongCardDate = $(byText("Неверно указан срок действия карты"));
     private SelenideElement cardExpired = $(byText("Истёк срок действия карты"));
+
+    public void filledForm(DataHelper.CardInfo cardInfo, DataHelper.MonthInfo monthInfo, DataHelper.YearInfo yearInfo, DataHelper.OwnerInfo ownerInfo, DataHelper.CvcInfo cvcInfo) {
+        cardNumberForm.setValue(cardInfo.getCardNumber());
+        monthForm.setValue(monthInfo.getMonth());
+        yearForm.setValue(yearInfo.getYear());
+        ownerForm.setValue(ownerInfo.getOwner());
+        cvcForm.setValue(cvcInfo.getCvc());
+        continueButton.click();
+    }
+
+    public void cleanFilledForm() {
+        cardNumberForm.doubleClick().sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        monthForm.doubleClick().sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        yearForm.doubleClick().sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        ownerForm.doubleClick().sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        cvcForm.doubleClick().sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+    }
+
+    public void waitSuccessfulNotification() {
+        successfulNotification.should(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    public void waitErrorNotification() {
+        errorNotification.should(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    public void waitEmptyField() {
+        emptyField.should(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    public void waitWrongFormat() {
+        wrongFormat.should(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    public void waitWrongCardDate() {
+        wrongCardDate.should(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    public void waitCardExpired() {
+        cardExpired.should(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    public void onlyCardField(DataHelper.CardInfo cardInfo) {
+        cardNumberForm.setValue(cardInfo.getCardNumber());
+    }
+
+    public void emptyCardField() {
+        cardNumberForm.should(Condition.empty);
+    }
+
+    public void onlyMonthField(DataHelper.MonthInfo monthInfo) {
+        monthForm.setValue(monthInfo.getMonth());
+    }
+
+    public void emptyMonthField() {
+        monthForm.should(Condition.empty);
+    }
+
+    public void onlyYearField(DataHelper.YearInfo yearInfo) {
+        yearForm.setValue(yearInfo.getYear());
+    }
+
+    public void emptyYearField() {
+        yearForm.should(Condition.empty);
+    }
+
+    public void onlyCVCField(DataHelper.CvcInfo cvcInfo) {
+        cvcForm.setValue(cvcInfo.getCvc());
+    }
+
+    public void emptyCVCField() {
+        cvcForm.should(Condition.empty);
+    }
 }

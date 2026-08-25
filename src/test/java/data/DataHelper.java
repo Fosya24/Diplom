@@ -53,7 +53,7 @@ public class DataHelper {
         return new MonthInfo(month);
     }
 
-    public static MonthInfo getGenerateMonthDate(int shift) {
+    public static MonthInfo getGenerateInvalidMonthDate(int shift) {
         var month = LocalDate.now().minusMonths(shift).format(DateTimeFormatter.ofPattern("MM"));
         return new MonthInfo(month);
     }

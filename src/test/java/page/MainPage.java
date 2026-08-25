@@ -14,4 +14,9 @@ public class MainPage {
         buyForm.click();
         return new PaymentFormBuyPage();
     }
+
+    public PaymentFormBuyByCreditPage payWithCreditCard() {
+        buyByCreditForm.click();
+        return new PaymentFormBuyByCreditPage();
+    }
 }

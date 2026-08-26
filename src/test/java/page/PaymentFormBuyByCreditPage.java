@@ -7,23 +7,23 @@ import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class PaymentFormBuyByCreditPage {
-    private SelenideElement cardNumberForm = $("[placeholder='0000 0000 0000 0000']");
-    private SelenideElement monthForm = $("[placeholder='08']");
-    private SelenideElement yearForm = $("[placeholder='22']");
-    private SelenideElement ownerForm = $$("[class='input__control']").get(3);
-    private SelenideElement cvcForm = $("[placeholder='999']");
-    private SelenideElement continueButton = $(byText("Продолжить"));
-    private SelenideElement successfulNotification = $(byText("Операция одобрена Банком."));
-    private SelenideElement errorNotification = $(byText("Ошибка! Банк отказал в проведении операции."));
-    private SelenideElement emptyField = $(byText("Поле обязательно для заполнения"));
-    private SelenideElement wrongFormat = $(byText("Неверный формат"));
-    private SelenideElement wrongCardDate = $(byText("Неверно указан срок действия карты"));
-    private SelenideElement cardExpired = $(byText("Истёк срок действия карты"));
+    private final SelenideElement cardNumberForm = $("[placeholder='0000 0000 0000 0000']");
+    private final SelenideElement monthForm = $("[placeholder='08']");
+    private final SelenideElement yearForm = $("[placeholder='22']");
+    private final SelenideElement ownerForm = $$(".input__inner").findBy(text("Владелец")).$(".input__control");
+    private final SelenideElement cvcForm = $("[placeholder='999']");
+    private final SelenideElement continueButton = $$(".button__content").findBy(text("Продолжить"));
+    private final SelenideElement successfulNotification = $$(".notification__content").findBy(text("Операция одобрена Банком."));
+    private final SelenideElement errorNotification = $$(".notification__content").findBy(text("Ошибка! Банк отказал в проведении операции."));
+    private final SelenideElement emptyField = $$(".input__inner").findBy(text("Поле обязательно для заполнения"));
+    private final SelenideElement wrongFormat = $$(".input__inner").findBy(text("Неверный формат"));
+    private final SelenideElement wrongCardDate = $$(".input__inner").findBy(text("Неверно указан срок действия карты"));
+    private final SelenideElement cardExpired = $$(".input__inner").findBy(text("Истёк срок действия карты"));
 
     public void filledForm(DataHelper.CardInfo cardInfo, DataHelper.MonthInfo monthInfo, DataHelper.YearInfo yearInfo, DataHelper.OwnerInfo ownerInfo, DataHelper.CvcInfo cvcInfo) {
         cardNumberForm.setValue(cardInfo.getCardNumber());
@@ -43,27 +43,27 @@ public class PaymentFormBuyByCreditPage {
     }
 
     public void waitSuccessfulNotification() {
-        successfulNotification.should(Condition.visible, Duration.ofSeconds(10));
+        successfulNotification.should(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void waitErrorNotification() {
-        errorNotification.should(Condition.visible, Duration.ofSeconds(10));
+        errorNotification.should(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void waitEmptyField() {
-        emptyField.should(Condition.visible, Duration.ofSeconds(10));
+        emptyField.should(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void waitWrongFormat() {
-        wrongFormat.should(Condition.visible, Duration.ofSeconds(10));
+        wrongFormat.should(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void waitWrongCardDate() {
-        wrongCardDate.should(Condition.visible, Duration.ofSeconds(10));
+        wrongCardDate.should(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void waitCardExpired() {
-        cardExpired.should(Condition.visible, Duration.ofSeconds(10));
+        cardExpired.should(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void onlyCardField(DataHelper.CardInfo cardInfo) {

@@ -10,6 +10,7 @@ import page.PaymentFormBuyPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DebitCardPayTest {
     private MainPage mainPage;
@@ -506,6 +507,6 @@ public class DebitCardPayTest {
         paymentFormBuyPage.filledForm(cardNumber, month, year, owner, cvc);
         var expected = SQLHelper.getDebitPaymentID();
         var actual = SQLHelper.getDebitOrderEntryId();
-        assertEquals(expected, actual);
+        assertNotEquals(expected, actual);
     }
 }

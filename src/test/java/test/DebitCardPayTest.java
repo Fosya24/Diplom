@@ -10,7 +10,6 @@ import page.PaymentFormBuyPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DebitCardPayTest {
     private MainPage mainPage;
